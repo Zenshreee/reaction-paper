@@ -33,7 +33,7 @@ public class IntervalGraph {
    * @return true if the intervals overlap, false otherwise
    */
   public boolean isOverlapping(Interval a, Interval b) {
-    return !(a.end < b.start || b.end < a.start);
+    return !(a.k < b.i || b.k < a.i);
   }
 
   /**
@@ -60,10 +60,10 @@ public class IntervalGraph {
    */
   public void printGraph() {
     for (Interval interval : graph.keySet()) {
-      System.out.print("[" + interval.start + ", " + interval.end + "]: ");
+      System.out.print("[" + interval.i + ", " + interval.k + ", " + interval.j + "]: ");
       System.out.print("[");
       for (Interval neighbor : graph.get(interval)) {
-        System.out.print("[" + neighbor.start + ", " + neighbor.end + "], ");
+        System.out.print("(" + neighbor.i + ", " + neighbor.j + ", " + neighbor.k + "), ");
       }
       // parse out the last comma + space
       if (graph.get(interval).size() > 0) {
