@@ -45,10 +45,8 @@ class Main {
 
     // construct the interval graph
     IntervalGraph intervalGraph = new IntervalGraph();
-    for (Interval interval : intervals) {
-      intervalGraph.addInterval(interval);
-    }
-
+    intervalGraph.buildGraph(intervals);
+    
     scanner.close();
   }
 }
