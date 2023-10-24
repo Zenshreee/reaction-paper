@@ -74,4 +74,14 @@ public class IntervalGraph {
     }
   }
 
+  public int maxDegree(){
+    int max = 0;
+    for (Interval interval : graph.keySet()) {
+      if (graph.get(interval).size() > max) {
+        max = graph.get(interval).size();
+      }
+    }
+    return max;
+  }
+
 }
