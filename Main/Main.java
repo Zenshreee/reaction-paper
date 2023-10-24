@@ -102,7 +102,7 @@ class Main {
         double r = random.nextDouble();
         if (r < p) {
           int[] pair = { i, j };
-          System.out.println(i + " " + j);
+          // System.out.println(i + " " + j);
           customers.add(pair);
         }
       }
@@ -136,10 +136,10 @@ class Main {
     intervalGraph.buildGraph(intervals);
 
     // print intervals
-    System.out.println("The intervals are:");
-    for (Interval interval : intervals) {
-      System.out.println(interval);
-    }
+    // System.out.println("The intervals are:");
+    // for (Interval interval : intervals) {
+    //   System.out.println(interval);
+    // }
 
     // sort intervals by profit/cost ratio
     Collections.sort(intervals, new Comparator<Interval>() {
