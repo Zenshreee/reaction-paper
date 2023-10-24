@@ -4,15 +4,16 @@ import java.util.*;
 
 class Main {
   public static void main(String[] args) {
-    List<Interval> intervals = new ArrayList<>();
-    intervals.add(new Interval(1, 4));
-    intervals.add(new Interval(2, 6));
-    intervals.add(new Interval(5, 6));
-    intervals.add(new Interval(7, 8));
 
-    IntervalGraph graph = new IntervalGraph();
-    graph.buildGraph(intervals);
-    graph.printGraph();
-    
+    // take in input
+    Scanner scanner = new Scanner(System.in);
+    int n = scanner.nextInt();
+    Random random = new Random();
+
+    GridGraph grid = new GridGraph(n);
+
+    double p = 0.5;
+
+    scanner.close();
   }
 }
