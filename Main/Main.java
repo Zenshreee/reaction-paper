@@ -4,6 +4,18 @@ import java.util.*;
 
 class Main {
 
+  /**
+   * Solves the MDSP problem.
+   * 
+   * @param m             the number of drones
+   * @param mDelta        the number of drones + the maximum degree of the
+   *                      interval
+   *                      graph
+   * @param B             the budget
+   * @param intervals     the list of intervals
+   * @param intervalGraph the interval graph
+   * @return the list of assignments
+   */
   public static List<List<Interval>> solveMDSP(int m, int mDelta, int B, List<Interval> intervals,
       IntervalGraph intervalGraph) {
     HashSet<Integer> M = new HashSet<>();
@@ -83,26 +95,18 @@ class Main {
     return assignments;
   }
 
-  public static void main(String[] args) {
-
-    /*
-     * Take in and parse the input, which consists of:
-     * - n, the number of rows and columns in the grid
-     */
-    Scanner scanner = new Scanner(System.in);
-    int n = scanner.nextInt();
-    Random random = new Random();
-
-    double p = 0.5; // probability threshold that node is a customer
-
+  /*
+   * Runs the simulation with a given set of parameters.
+   */
+  public static double run(int n, int m, double p, int B) {
     // generate random customers
+    Random random = new Random();
     List<int[]> customers = new ArrayList<>();
     for (int i = 0; i < n; i++) {
       for (int j = 0; j < n; j++) {
         double r = random.nextDouble();
         if (r < p) {
           int[] pair = { i, j };
-          // System.out.println(i + " " + j);
           customers.add(pair);
         }
       }
@@ -135,12 +139,6 @@ class Main {
     IntervalGraph intervalGraph = new IntervalGraph();
     intervalGraph.buildGraph(intervals);
 
-    // print intervals
-    // System.out.println("The intervals are:");
-    // for (Interval interval : intervals) {
-    //   System.out.println(interval);
-    // }
-
     // sort intervals by profit/cost ratio
     Collections.sort(intervals, new Comparator<Interval>() {
       @Override
@@ -149,26 +147,55 @@ class Main {
       }
     });
 
-    // Battery Budget
-    int B = n;
-
-    // Drones
-    int m = 4;
-
+    // compute m + delta
     int mDelta = m + intervalGraph.maxDegree();
 
     // Run the GreedyAlgoForMDSP algorithm.
     List<List<Interval>> assignments = solveMDSP(m, mDelta, B, intervals, intervalGraph);
 
-    // Print the results.
-    System.out.println("The most profitable assignments are:");
+    // compute profit
+    double profit = 0;
     for (int i = 0; i < assignments.size(); i++) {
-      System.out.println("Drone " + i + ":");
-      for (Interval interval : assignments.get(i)) {
-        System.out.println(interval);
+      for (int j = 0; j < assignments.get(i).size(); j++) {
+        profit += assignments.get(i).get(j).getProfit();
       }
     }
 
-    scanner.close();
+    double maxProfit = 0;
+    for (int k = 0; k < intervals.size(); k++) {
+      maxProfit += intervals.get(k).getProfit();
+    }
+
+    return profit / maxProfit;
+  }
+
+  /*
+   * Main method
+   */
+  public static void main(String[] args) {
+
+    int n = 200; // 400
+    int[] drones = { n * n / 5 };
+    double[] probabilities = { 0.1, 0.15, 0.2, 0.25, 0.3, 0.25, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95 }; // probability threshold that node is a customer
+    int minB = 1;
+    int maxB = n * n;
+
+    // need total profit
+    for (double p : probabilities) {
+      for (int m : drones) {
+        while (minB < maxB) {
+          int B = (minB + maxB) / 2;
+          double profitPercent = 0;
+          for (int i = 0; i < 1; i++) {
+            profitPercent += run(n, m, p, B);
+            System.out.println(profitPercent);
+          }
+          profitPercent /= 10;
+          minB = profitPercent <= 0.75 ? B : minB;
+          maxB = profitPercent >= 0.75 ? B : maxB;
+        }
+        System.out.println("n: " + n + ", m: " + m + ", p: " + p + ", B: " + minB);
+      }
+    }
   }
 }
