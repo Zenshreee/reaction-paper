@@ -1,6 +1,8 @@
 package Main;
 
 import java.util.*;
+import java.io.FileWriter;
+import java.io.IOException;
 
 class Main {
 
@@ -174,28 +176,49 @@ class Main {
    */
   public static void main(String[] args) {
 
-    int n = 200; // 400
-    int[] drones = { n * n / 5 };
-    double[] probabilities = { 0.1, 0.15, 0.2, 0.25, 0.3, 0.25, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95 }; // probability threshold that node is a customer
-    int minB = 1;
-    int maxB = n * n;
+    int n = 150; // grid size is n x n
+    int m = n * n ;
+    double[] probabilities = { 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1 };
+    int[] B = { n * n};
 
-    // need total profit
-    for (double p : probabilities) {
-      for (int m : drones) {
-        while (minB < maxB) {
-          int B = (minB + maxB) / 2;
-          double profitPercent = 0;
-          for (int i = 0; i < 1; i++) {
-            profitPercent += run(n, m, p, B);
-            System.out.println(profitPercent);
-          }
-          profitPercent /= 10;
-          minB = profitPercent <= 0.75 ? B : minB;
-          maxB = profitPercent >= 0.75 ? B : maxB;
+    for (int b : B) {
+      for (double p : probabilities) {
+        double profit = run(n, m, p, b);
+
+        // put results in results.txt Format: p, profit
+        try {
+          FileWriter fw = new FileWriter("results.txt", true);
+          fw.write(p + ", " + profit + ", " + b + "\n");
+          fw.close();
+        } catch (IOException e) {
+          e.printStackTrace();
         }
-        System.out.println("n: " + n + ", m: " + m + ", p: " + p + ", B: " + minB);
+      // System.out.println(p + ", " + profit + "\n");
+
       }
     }
+
+    // probability threshold that node is a customer
+    // int minB = 1;
+    // int maxB = n * n;
+
+    // // need total profit
+    // for (double p : probabilities) {
+    // for (int m : drones) {
+    // while (minB < maxB) {
+    // int B = (minB + maxB) / 2;
+    // double profitPercent = 0;
+    // for (int i = 0; i < 1; i++) {
+    // profitPercent += run(n, m, p, B);
+    // System.out.println(profitPercent);
+    // }
+    // profitPercent /= 10;
+    // minB = profitPercent <= 0.75 ? B : minB;
+    // maxB = profitPercent >= 0.75 ? B : maxB;
+    // }
+    // System.out.println("n: " + n + ", m: " + m + ", p: " + p + ", B: " + minB);
+    // }
+    // }
+
   }
 }
