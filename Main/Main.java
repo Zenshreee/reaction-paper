@@ -193,32 +193,9 @@ class Main {
         } catch (IOException e) {
           e.printStackTrace();
         }
-      // System.out.println(p + ", " + profit + "\n");
 
       }
     }
-
-    // probability threshold that node is a customer
-    // int minB = 1;
-    // int maxB = n * n;
-
-    // // need total profit
-    // for (double p : probabilities) {
-    // for (int m : drones) {
-    // while (minB < maxB) {
-    // int B = (minB + maxB) / 2;
-    // double profitPercent = 0;
-    // for (int i = 0; i < 1; i++) {
-    // profitPercent += run(n, m, p, B);
-    // System.out.println(profitPercent);
-    // }
-    // profitPercent /= 10;
-    // minB = profitPercent <= 0.75 ? B : minB;
-    // maxB = profitPercent >= 0.75 ? B : maxB;
-    // }
-    // System.out.println("n: " + n + ", m: " + m + ", p: " + p + ", B: " + minB);
-    // }
-    // }
 
   }
 }
