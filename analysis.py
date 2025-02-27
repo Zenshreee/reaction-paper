@@ -81,7 +81,7 @@ data_str = """
 0.9, 0.10110321853180189, 22500
 1.0, 0.08865105345634566, 22500
 """
-
+#small comment there
 data = pd.read_csv(StringIO(data_str), header=None, names=['Probability', 'ProfitRatio', 'BatteryBudget'])
 
 def plot_data(df, title):
@@ -116,7 +116,7 @@ def plot_data(df, title):
     plt.ylabel('Profit Ratio')
     plt.legend()
     plt.show()
-
+# small comment here
 # For m = n * n / 20, filter data for the particular setting
 filtered_data1 = data[data['BatteryBudget'].isin([2812, 5625, 11250, 15000, 16875, 18750, 22500])]
 plot_data(filtered_data1, 'm = n * n / 20')

@@ -34,6 +34,7 @@ public class IntervalGraph {
    */
   public boolean isOverlapping(Interval a, Interval b) {
     return !(a.k < b.i || b.k < a.i);
+    // small comment here
   }
 
   /**
