@@ -112,7 +112,7 @@ def plot_data(df, title):
         elif budget == 22500:
             label = "n * n"
         else:
-            label = "Unknown"
+            label = "Unknown Here"
 
         plt.plot(subset["Probability"], subset["ProfitRatio"], label=label)
 
