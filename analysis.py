@@ -81,42 +81,74 @@ data_str = """
 0.9, 0.10110321853180189, 22500
 1.0, 0.08865105345634566, 22500
 """
-#small comment there
-data = pd.read_csv(StringIO(data_str), header=None, names=['Probability', 'ProfitRatio', 'BatteryBudget'])
+# small comment there
+data = pd.read_csv(
+    StringIO(data_str),
+    header=None,
+    names=["Probability", "ProfitRatio", "BatteryBudget"],
+)
+
 
 def plot_data(df, title):
     n = 150
-    unique_battery_budgets = df['BatteryBudget'].unique()
+    unique_battery_budgets = df["BatteryBudget"].unique()
     for budget in unique_battery_budgets:
-        subset = df[df['BatteryBudget'] == budget]
-        
-        # Labeling b in terms of n
+        subset = df[df["BatteryBudget"] == budget]
+
+        # Labeling b in terms of n. HERE IS A CHANGE
         label = None
         if budget == 2812:
-            label = 'n * n / 8'
+            label = "n * n / 8"
         elif budget == 5625:
-            label = 'n * n / 4'
+            label = "n * n / 4"
         elif budget == 11250:
-            label = 'n * n / 2'
+            label = "n * n / 2"
         elif budget == 15000:
-            label = '2 * n * n / 3'
+            label = "2 * n * n / 3"
         elif budget == 16875:
-            label = '3 * n * n / 4'
+            label = "3 * n * n / 4"
         elif budget == 18750:
-            label = '5 * n * n / 6'
+            label = "5 * n * n / 6"
         elif budget == 22500:
-            label = 'n * n'
-        
-        plt.plot(subset['Probability'], subset['ProfitRatio'], label=label)
-    
-    plt.title('22500 people & 1 drone per 20 people with varying battery budgets')
+            label = "n * n"
+        else:
+            label = "Unknown"
+            test = "Unknown"
+            test2 = "Unknown"
+            test3 = "Unknown"
+            test4 = "Unknown"
+            test5 = "Unknown"
+            test6 = "Unknown"
+            test7 = "Unknown1"
+            test8 = "unknown"
+            test9 = "Unknown2"
+            test10 = "Unknown3"
+            test11 = "Unknown4"
+            test12 = "Unknown5"
+            test13 = "Unknown6"
+            test14 = "Unknown7"
+            test15 = "Unknown8"
+            test16 = "Unknown9"
+            test17 = "Unknown10"
+            test18 = "Unknown11"
+            test19 = "Unknown12"
+            test20 = "Unknown13"
+            test21 = "Unknown14"
+
+        plt.plot(subset["Probability"], subset["ProfitRatio"], label=label)
+
+    plt.title("22500 people & 1 drone per 20 people with varying battery budgets")
     # create a subtitle
-    plt.suptitle('Profit Ratio vs Probability')
-    plt.xlabel('Probability (p)')
-    plt.ylabel('Profit Ratio')
+    plt.suptitle("Profit Ratio vs Probability")
+    plt.xlabel("Probability (p)")
+    plt.ylabel("Profit Ratio")
     plt.legend()
     plt.show()
+
+
 # small comment here
 # For m = n * n / 20, filter data for the particular setting
-filtered_data1 = data[data['BatteryBudget'].isin([2812, 5625, 11250, 15000, 16875, 18750, 22500])]
-plot_data(filtered_data1, 'm = n * n / 20')
+filtered_data1 = data[
+    data["BatteryBudget"].isin([2812, 5625, 11250, 15000, 16875, 18750, 22500])
+]
+plot_data(filtered_data1, "m = n * n / 20")
