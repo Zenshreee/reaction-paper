@@ -36,6 +36,7 @@ public class IntervalGraph {
     System.out.println("Checking if " + a + " and " + b + " overlap");
     return !(a.k < b.i || b.k < a.i);
     // small comment here and a small modification here and another one here
+    // and another one here
   }
 
   /**
