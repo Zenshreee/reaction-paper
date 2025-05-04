@@ -105,7 +105,7 @@ def plot_data(df, title):
         elif budget == 18750:
             label = '5 * n * n / 6'
         elif budget == 22500:
-            label = 'n * n'
+            label = 'n * n' # small change here
         
         plt.plot(subset['Probability'], subset['ProfitRatio'], label=label)
     
